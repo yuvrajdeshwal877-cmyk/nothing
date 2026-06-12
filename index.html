@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumière — Scented Wax Collection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #FAF6F0; --warm-white: #FDF9F4; --amber: #C8854A;
+      --amber-light: #E8A96A; --deep: #2A1F14; --muted: #7A6A58;
+      --border: #E8DDD0; --wax-pink: #F2D4C8; --wax-sage: #C8D8C0;
+      --wax-lilac: #D8CCE8; --wax-gold: #E8D8A8;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--deep); font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(250,246,240,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 6vw; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; letter-spacing: 0.04em; color: var(--deep); text-decoration: none; }
+    .nav-logo span { color: var(--amber); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--amber); }
+    .nav-right { display: flex; gap: 0.6rem; align-items: center; }
+    .nav-cta { background: var(--amber); color: white; border: none; border-radius: 2px; padding: 0.5rem 1.2rem; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; font-family: 'Inter', sans-serif; }
+    .nav-cta:hover { background: var(--deep); }
+    .admin-nav-btn { background: var(--deep); color: var(--amber-light); border: none; border-radius: 2px; padding: 0.5rem 1rem; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .admin-nav-btn:hover { background: #3A2F24; }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 80px 6vw 0; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 70% 50%, var(--wax-pink) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 20% 80%, var(--wax-gold) 0%, transparent 50%); opacity: 0.5; pointer-events: none; }
+    .hero-content { max-width: 560px; position: relative; z-index: 1; }
+    .hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.5rem; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 300; line-height: 1.1; color: var(--deep); margin-bottom: 1.5rem; }
+    .hero-title em { font-style: italic; color: var(--amber); }
+    .hero-sub { font-size: 1rem; color: var(--muted); max-width: 400px; margin-bottom: 2.5rem; line-height: 1.8; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .btn-primary { background: var(--deep); color: white; border: none; border-radius: 2px; padding: 0.9rem 2rem; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.25s; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 0.5rem; }
+    .btn-primary:hover { background: var(--amber); transform: translateY(-1px); }
+    .btn-call { display: flex; align-items: center; gap: 0.6rem; color: var(--deep); text-decoration: none; font-size: 0.88rem; font-weight: 500; border-bottom: 1px solid var(--amber); padding-bottom: 2px; transition: color 0.2s; }
+    .btn-call:hover { color: var(--amber); }
+
+    /* FLOATING CANDLES */
+    .hero-visual { position: absolute; right: 4vw; top: 50%; transform: translateY(-50%); display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; opacity: 0.85; }
+    .float-candle { width: 120px; height: 150px; border-radius: 8px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 1rem; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(42,31,20,0.12); animation: floatUp 4s ease-in-out infinite; }
+    .float-candle:nth-child(2) { animation-delay: 1s; margin-top: 2rem; }
+    .float-candle:nth-child(3) { animation-delay: 2s; }
+    .float-candle:nth-child(4) { animation-delay: 0.5s; margin-top: 2rem; }
+    @keyframes floatUp { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .float-candle.pink { background: linear-gradient(160deg, #F5E0D8 0%, #E8C4B4 100%); }
+    .float-candle.sage { background: linear-gradient(160deg, #D8E8D0 0%, #B8D0B0 100%); }
+    .float-candle.lilac { background: linear-gradient(160deg, #E8DCFA 0%, #D0C0EC 100%); }
+    .float-candle.gold { background: linear-gradient(160deg, #F5ECC8 0%, #E0D090 100%); }
+    .candle-flame { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-size: 1.4rem; animation: flicker 1.5s ease-in-out infinite; }
+    @keyframes flicker { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; } 50% { transform: translateX(-50%) scale(1.1) rotate(2deg); opacity: 0.9; } }
+    .candle-label { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+
+    /* MARQUEE */
+    .marquee-wrap { background: var(--deep); color: var(--amber-light); padding: 0.7rem 0; overflow: hidden; }
+    .marquee-track { display: flex; gap: 3rem; animation: scroll 20s linear infinite; white-space: nowrap; }
+    .marquee-item { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; flex-shrink: 0; }
+    @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* SECTION */
+    section { padding: 6rem 6vw; }
+    .section-eyebrow { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.8rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.2; margin-bottom: 0.5rem; }
+    .section-sub { color: var(--muted); max-width: 480px; font-size: 0.95rem; }
+
+    /* PRODUCTS */
+    #products { background: var(--warm-white); }
+    .products-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+    .filter-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-btn { background: none; border: 1px solid var(--border); border-radius: 2px; padding: 0.4rem 1rem; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .filter-btn.active, .filter-btn:hover { background: var(--amber); border-color: var(--amber); color: white; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+    .product-card { background: var(--cream); border-radius: 4px; overflow: hidden; border: 1px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; position: relative; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(42,31,20,0.1); }
+    .product-img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; }
+    .product-badge { position: absolute; top: 0.75rem; left: 0.75rem; background: var(--amber); color: white; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 2px; }
+    .product-info { padding: 1.2rem; }
+    .product-scent { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.3rem; }
+    .product-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .product-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.6; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--deep); }
+    .product-wt { font-size: 0.72rem; color: var(--muted); }
+    .add-btn { background: var(--deep); color: white; border: none; border-radius: 2px; width: 36px; height: 36px; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .add-btn:hover { background: var(--amber); }
+    .admin-delete-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: #e53e3e; color: white; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 0.8rem; cursor: pointer; display: none; align-items: center; justify-content: center; z-index: 5; }
+    .admin-edit-btn { position: absolute; top: 0.5rem; right: 2.3rem; background: var(--deep); color: white; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 0.75rem; cursor: pointer; display: none; align-items: center; justify-content: center; z-index: 5; }
+    body.admin-mode .admin-delete-btn, body.admin-mode .admin-edit-btn { display: flex; }
+
+    /* HOW TO ORDER */
+    #how { background: var(--deep); color: white; }
+    #how .section-title { color: white; }
+    #how .section-eyebrow { color: var(--amber-light); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .step { text-align: center; }
+    .step-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .step-num { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber-light); margin-bottom: 0.4rem; }
+    .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 0.4rem; }
+    .step-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* CALL CTA */
+    .cta-band { background: linear-gradient(135deg, var(--amber) 0%, #A06030 100%); color: white; text-align: center; padding: 5rem 6vw; }
+    .cta-band h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; margin-bottom: 1rem; }
+    .cta-band p { font-size: 1rem; opacity: 0.85; margin-bottom: 2.5rem; }
+    .cta-phone { display: inline-flex; align-items: center; gap: 0.8rem; background: white; color: var(--deep); text-decoration: none; font-weight: 500; font-size: 1.2rem; padding: 1rem 2.5rem; border-radius: 2px; transition: transform 0.2s, box-shadow 0.2s; letter-spacing: 0.04em; }
+    .cta-phone:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+    .cta-timing { font-size: 0.78rem; opacity: 0.7; margin-top: 1.2rem; }
+
+    /* REVIEWS */
+    #reviews { background: var(--cream); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .review-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
+    .stars { color: var(--amber); margin-bottom: 0.8rem; font-size: 0.9rem; }
+    .review-text { font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
+    .reviewer { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--deep); font-weight: 500; }
+
+    /* FOOTER */
+    footer { background: var(--deep); color: rgba(255,255,255,0.5); padding: 3rem 6vw; text-align: center; font-size: 0.8rem; line-height: 1.9; }
+    footer strong { color: rgba(255,255,255,0.85); }
+    footer a { color: var(--amber-light); text-decoration: none; }
+
+    /* PRODUCT MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(42,31,20,0.6); backdrop-filter: blur(4px); align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--cream); border-radius: 4px; padding: 2.5rem; max-width: 460px; width: 90%; position: relative; max-height: 90vh; overflow-y: auto; }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--muted); }
+    .modal h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 0.3rem; }
+    .modal-scent { color: var(--amber); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .modal-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.7; }
+    .modal-price { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; margin-bottom: 1.5rem; }
+    .modal-actions { display: flex; gap: 0.8rem; flex-direction: column; }
+    .modal-call-btn { display: flex; align-items: center; justify-content: center; gap: 0.7rem; background: var(--deep); color: white; text-decoration: none; padding: 0.9rem; border-radius: 2px; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; transition: background 0.2s; font-family: 'Inter', sans-serif; border: none; cursor: pointer; width: 100%; }
+    .modal-call-btn:hover { background: var(--amber); }
+    .modal-wa-btn { display: flex; align-items: center; justify-content: center; gap: 0.7rem; background: #25D366; color: white; text-decoration: none; padding: 0.9rem; border-radius: 2px; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; transition: background 0.2s; font-family: 'Inter', sans-serif; border: none; cursor: pointer; width: 100%; }
+    .modal-wa-btn:hover { background: #1DA851; }
+
+    /* ADMIN PANEL */
+    .admin-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 300; background: var(--deep); border-top: 2px solid var(--amber); padding: 0.8rem 2rem; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    body.admin-mode .admin-bar { display: flex; }
+    .admin-bar-title { color: var(--amber-light); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+    .admin-btn { border: none; border-radius: 2px; padding: 0.5rem 1.2rem; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .admin-btn-add { background: var(--amber); color: white; }
+    .admin-btn-add:hover { background: #B07038; }
+    .admin-btn-exit { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+    .admin-btn-exit:hover { background: rgba(255,255,255,0.2); color: white; }
+    .admin-count { color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-left: auto; }
+
+    /* ADMIN FORM MODAL */
+    .amodal-overlay { display: none; position: fixed; inset: 0; z-index: 400; background: rgba(42,31,20,0.7); backdrop-filter: blur(6px); align-items: center; justify-content: center; }
+    .amodal-overlay.open { display: flex; }
+    .amodal { background: var(--warm-white); border-radius: 4px; padding: 2rem; max-width: 500px; width: 92%; position: relative; max-height: 90vh; overflow-y: auto; }
+    .amodal h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 1.5rem; }
+    .form-row { margin-bottom: 1rem; }
+    .form-row label { display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.35rem; }
+    .form-row input, .form-row select, .form-row textarea { width: 100%; border: 1px solid var(--border); border-radius: 2px; padding: 0.6rem 0.8rem; font-size: 0.9rem; font-family: 'Inter', sans-serif; background: white; color: var(--deep); outline: none; transition: border-color 0.2s; }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--amber); }
+    .form-row textarea { resize: vertical; min-height: 80px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .emoji-picker { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .emoji-opt { font-size: 1.4rem; padding: 0.3rem; border-radius: 4px; cursor: pointer; border: 2px solid transparent; transition: border-color 0.15s; }
+    .emoji-opt.selected { border-color: var(--amber); }
+    .color-picker { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .color-opt { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: border-color 0.15s; }
+    .color-opt.selected { border-color: var(--deep); }
+    .form-actions { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+    .form-btn-save { flex: 1; background: var(--deep); color: white; border: none; border-radius: 2px; padding: 0.8rem; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s; }
+    .form-btn-save:hover { background: var(--amber); }
+    .form-btn-cancel { background: none; border: 1px solid var(--border); border-radius: 2px; padding: 0.8rem 1.2rem; font-size: 0.88rem; cursor: pointer; color: var(--muted); font-family: 'Inter', sans-serif; }
+
+    /* LOGIN MODAL */
+    .login-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(42,31,20,0.8); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
+    .login-overlay.open { display: flex; }
+    .login-box { background: var(--warm-white); border-radius: 4px; padding: 2.5rem; max-width: 360px; width: 90%; text-align: center; }
+    .login-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .login-box p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+    .login-box input { width: 100%; border: 1px solid var(--border); border-radius: 2px; padding: 0.7rem 1rem; font-size: 0.95rem; font-family: 'Inter', sans-serif; outline: none; margin-bottom: 1rem; }
+    .login-box input:focus { border-color: var(--amber); }
+    .login-btn { width: 100%; background: var(--deep); color: white; border: none; border-radius: 2px; padding: 0.8rem; font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .login-btn:hover { background: var(--amber); }
+    .login-err { color: #e53e3e; font-size: 0.8rem; margin-top: 0.5rem; display: none; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--deep); color: white; padding: 0.7rem 1.5rem; border-radius: 2px; font-size: 0.85rem; opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 600; white-space: nowrap; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* IMAGE UPLOAD */
+    .img-upload-area { border: 2px dashed var(--border); border-radius: 4px; padding: 1.2rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; margin-top: 0.5rem; }
+    .img-upload-area:hover { border-color: var(--amber); background: rgba(200,133,74,0.04); }
+    .img-upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .img-upload-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+    .img-upload-text { font-size: 0.8rem; color: var(--muted); }
+    .img-preview-wrap { position: relative; margin-top: 0.5rem; display: none; }
+    .img-preview-wrap.has-img { display: block; }
+    .img-preview { width: 100%; height: 160px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); }
+    .img-remove-btn { position: absolute; top: 0.4rem; right: 0.4rem; background: #e53e3e; color: white; border: none; border-radius: 50%; width: 26px; height: 26px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* MOBILE */
+    @media (max-width: 700px) { .hero-visual { display: none; } .nav-links { display: none; } .products-header { flex-direction: column; align-items: flex-start; } .form-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Lumi<span>ère</span></a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#how">How to Order</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="admin-nav-btn" onclick="openLogin()">⚙ Admin</button>
+    <a href="tel:+919999999999"><button class="nav-cta">📞 Call Now</button></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Handcrafted Scented Wax — Delhi NCR</p>
+    <h1 class="hero-title">Fragrance that <em>lingers</em> long after the flame.</h1>
+    <p class="hero-sub">Pure soy wax melts, tarts & candles — hand-poured with premium fragrance oils. Order by call, delivered to your door.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">🕯️ Browse Products</button>
+      <a class="btn-call" href="tel:+919999999999"><span>📞</span> +91 99999 99999</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="float-candle pink"><div class="candle-flame">🔥</div><span class="candle-label">Rose</span></div>
+    <div class="float-candle gold"><div class="candle-flame">🔥</div><span class="candle-label">Vanilla</span></div>
+    <div class="float-candle sage"><div class="candle-flame">🔥</div><span class="candle-label">Eucalyptus</span></div>
+    <div class="float-candle lilac"><div class="candle-flame">🔥</div><span class="candle-label">Lavender</span></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="products-header">
+    <div>
+      <p class="section-eyebrow">Our Collection</p>
+      <h2 class="section-title">Choose Your Mood</h2>
+      <p class="section-sub">Soy wax melts, tarts & pillar candles — all hand-poured in small batches.</p>
+    </div>
+    <div class="filter-row" id="filterRow"></div>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- HOW TO ORDER -->
+<section id="how">
+  <p class="section-eyebrow">Simple Process</p>
+  <h2 class="section-title" style="color:white;">Order in 3 Easy Steps</h2>
+  <div class="steps">
+    <div class="step"><div class="step-icon">👀</div><p class="step-num">Step 01</p><h3 class="step-title">Browse</h3><p class="step-desc">Scroll through our handcrafted wax melts and candles. Pick your favourite scent and size.</p></div>
+    <div class="step"><div class="step-icon">📞</div><p class="step-num">Step 02</p><h3 class="step-title">Call or WhatsApp</h3><p class="step-desc">Call us on <a href="tel:+919999999999" style="color:var(--amber-light);">+91 99999 99999</a> or drop a WhatsApp message with the product name.</p></div>
+    <div class="step"><div class="step-icon">📦</div><p class="step-num">Step 03</p><h3 class="step-title">Get Delivered</h3><p class="step-desc">We pack and dispatch within 24 hours. Free delivery on orders above ₹500 in Delhi NCR.</p></div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>Ready to fill your home with fragrance?</h2>
+  <p>Place your order right now — we're available 9 AM to 9 PM, every day.</p>
+  <a class="cta-phone" href="tel:+919999999999">📞 &nbsp;+91 99999 99999</a>
+  <p class="cta-timing">Mon – Sun &nbsp;·&nbsp; 9:00 AM – 9:00 PM</p>
+</div>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <p class="section-eyebrow">Happy Customers</p>
+  <h2 class="section-title">They're obsessed. You will be too.</h2>
+  <div class="reviews-grid">
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"The Jasmine Bloom wax melt is absolutely divine — my entire living room smells like a garden. Will definitely reorder!"</p><p class="reviewer">— Priya S., Noida</p></div>
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Ordered over call, very friendly service. The Vanilla Caramel candle has been burning for 40+ hours and still going strong!"</p><p class="reviewer">— Rahul M., Ghaziabad</p></div>
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Gifted the Lavender Dreams set to my mom and she absolutely loved it. Beautiful packaging and long-lasting fragrance."</p><p class="reviewer">— Anika T., Delhi</p></div>
+    <div class="review-card"><div class="stars">★★★★☆</div><p class="review-text">"Great quality soy wax — burns clean with no black smoke. Eucalyptus Mint is my go-to for the home office."</p><p class="reviewer">— Deepak K., Faridabad</p></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Lumière Scented Wax</strong></p>
+  <p>Handcrafted with love in Delhi NCR &nbsp;·&nbsp; <a href="tel:+919999999999">+91 99999 99999</a></p>
+  <p style="margin-top:0.5rem;">© 2025 Lumière. All rights reserved.</p>
+</footer>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-img" style="font-size:3.5rem;text-align:center;margin-bottom:1rem;"></div>
+    <div class="modal-scent" id="modal-scent"></div>
+    <h3 id="modal-name"></h3>
+    <p class="modal-desc" id="modal-desc"></p>
+    <div class="modal-price" id="modal-price"></div>
+    <div class="modal-actions">
+      <a class="modal-call-btn" href="tel:+919999999999">📞 Call to Order — +91 99999 99999</a>
+      <a class="modal-wa-btn" href="#" id="modal-wa" target="_blank">💬 Order on WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN BAR -->
+<div class="admin-bar">
+  <span class="admin-bar-title">⚙ Admin Mode</span>
+  <button class="admin-btn admin-btn-add" onclick="openAddForm()">+ Naya Product Add Karo</button>
+  <button class="admin-btn admin-btn-exit" onclick="exitAdmin()">Exit Admin</button>
+  <span class="admin-count" id="adminCount"></span>
+</div>
+
+<!-- ADMIN FORM MODAL -->
+<div class="amodal-overlay" id="amodal">
+  <div class="amodal">
+    <button class="modal-close" onclick="closeForm()">✕</button>
+    <h3 id="formTitle">Naya Product Add Karo</h3>
+
+    <div class="form-row">
+      <label>Product Ka Naam *</label>
+      <input type="text" id="f-name" placeholder="e.g. Rose Oud Candle" />
+    </div>
+    <div class="form-grid">
+      <div class="form-row">
+        <label>Category *</label>
+        <input type="text" id="f-cat" placeholder="e.g. Wax Melt" list="catlist" />
+        <datalist id="catlist"></datalist>
+      </div>
+      <div class="form-row">
+        <label>Scent Type *</label>
+        <input type="text" id="f-scent" placeholder="e.g. Floral" list="scentlist" />
+        <datalist id="scentlist"><option value="Floral"><option value="Sweet"><option value="Fresh"><option value="Woody"><option value="Spicy"><option value="Citrus"><option value="Musky"></datalist>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-row">
+        <label>Price (₹) *</label>
+        <input type="text" id="f-price" placeholder="e.g. 299" />
+      </div>
+      <div class="form-row">
+        <label>Weight *</label>
+        <input type="text" id="f-weight" placeholder="e.g. 150g" />
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Description *</label>
+      <textarea id="f-desc" placeholder="Product ki khasiyat batao..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>Badge (optional)</label>
+      <input type="text" id="f-badge" placeholder="e.g. Bestseller / New / Premium" />
+    </div>
+    <div class="form-row">
+      <label>📸 Product Ki Photo (optional)</label>
+      <div class="img-upload-area" id="uploadArea">
+        <input type="file" id="f-img-file" accept="image/*" onchange="handleImageUpload(event)" />
+        <div class="img-upload-icon">🖼️</div>
+        <div class="img-upload-text">Tap karke phone/laptop se photo choose karo<br><span style="font-size:0.72rem;opacity:0.6;">JPG, PNG, WEBP — max 2MB</span></div>
+      </div>
+      <div class="img-preview-wrap" id="imgPreviewWrap">
+        <img id="imgPreview" class="img-preview" src="" alt="Preview" />
+        <button class="img-remove-btn" onclick="removeImage()">✕</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Emoji / Icon Chuno <span style="opacity:0.5;font-size:0.7rem;">(agar photo nahi hai toh)</span></label>
+      <div class="emoji-picker" id="emojiPicker"></div>
+    </div>
+    <div class="form-row">
+      <label>Card Ka Rang Chuno</label>
+      <div class="color-picker" id="colorPicker"></div>
+    </div>
+    <div class="form-actions">
+      <button class="form-btn-cancel" onclick="closeForm()">Cancel</button>
+      <button class="form-btn-save" onclick="saveProduct()">💾 Save Karo</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="login-overlay" id="loginModal">
+  <div class="login-box">
+    <h3>🔐 Admin Login</h3>
+    <p>Apna admin password daalo</p>
+    <input type="password" id="loginPass" placeholder="Password" onkeydown="if(event.key==='Enter')checkLogin()" />
+    <button class="login-btn" onclick="checkLogin()">Login Karo</button>
+    <p class="login-err" id="loginErr">❌ Galat password!</p>
+    <p style="margin-top:1rem;font-size:0.75rem;color:var(--muted);">Default password: <strong>admin123</strong></p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const PHONE = '+919999999999';
+const ADMIN_PASSWORD = 'admin123';
+
+const DEFAULT_PRODUCTS = [
+  { id:1, name:'Jasmine Bloom', category:'Wax Melt', scent:'Floral', emoji:'🌸', color:'#FDE8F0', price:'199', weight:'100g', desc:'A fresh, heady jasmine that softens into a musky base. Perfect for the bedroom or living room.', badge:'Bestseller' },
+  { id:2, name:'Vanilla Caramel', category:'Pillar Candle', scent:'Sweet', emoji:'🍯', color:'#FFF0D0', price:'349', weight:'200g', desc:'Warm vanilla wrapped in buttery caramel — cosy and comforting for winter evenings.', badge:'' },
+  { id:3, name:'Eucalyptus Mint', category:'Wax Tart', scent:'Fresh', emoji:'🌿', color:'#E0F0E0', price:'149', weight:'80g', desc:'Crisp eucalyptus with a cool mint edge. Energises any space, great for work-from-home.', badge:'New' },
+  { id:4, name:'Lavender Dreams', category:'Wax Melt', scent:'Floral', emoji:'💜', color:'#EDE0F8', price:'179', weight:'100g', desc:'Soft, calming lavender with hints of chamomile. Designed for a restful night\'s sleep.', badge:'' },
+  { id:5, name:'Oud & Amber', category:'Pillar Candle', scent:'Woody', emoji:'🪵', color:'#F0E0C8', price:'449', weight:'250g', desc:'Deep oud wood layered over warm amber resin — a luxurious, long-lasting experience.', badge:'Premium' },
+  { id:6, name:'Rose Garden', category:'Wax Tart', scent:'Floral', emoji:'🌹', color:'#FFD8D8', price:'169', weight:'80g', desc:'Classic damask rose, lush and romantic. A timeless fragrance loved by all generations.', badge:'' },
+  { id:7, name:'Citrus Burst', category:'Wax Melt', scent:'Fresh', emoji:'🍋', color:'#FFFBD0', price:'159', weight:'100g', desc:'Zesty lemon, orange peel and grapefruit — an instant mood lifter for mornings.', badge:'' },
+  { id:8, name:'Sandalwood Bliss', category:'Pillar Candle', scent:'Woody', emoji:'🕯️', color:'#E8D8C0', price:'399', weight:'200g', desc:'Creamy sandalwood with a hint of musk — grounding, meditative and deeply calming.', badge:'Bestseller' },
+];
+
+const EMOJIS = ['🕯️','🌸','🌹','💜','🌿','🍯','🍋','🪵','🌺','🌻','🌼','🧡','🌙','⭐','💫','🍓','🌴','🌊','🔥','🎋','🍃','🫧','🌾','🫐'];
+const COLORS = ['#FDE8F0','#FFF0D0','#E0F0E0','#EDE0F8','#F0E0C8','#FFD8D8','#FFFBD0','#E8D8C0','#D8EEF8','#F8E8D0','#E8F8E8','#F8D8F8'];
+
+let products = [];
+let activeFilter = 'All';
+let editingId = null;
+let selectedEmoji = '🕯️';
+let selectedColor = '#FDE8F0';
+let selectedImage = null;
+
+// STORAGE
+function loadProducts() {
+  try {
+    const saved = localStorage.getItem('lumiere_products');
+    products = saved ? JSON.parse(saved) : [...DEFAULT_PRODUCTS];
+  } catch(e) { products = [...DEFAULT_PRODUCTS]; }
+}
+function saveProducts() {
+  try { localStorage.setItem('lumiere_products', JSON.stringify(products)); } catch(e) {}
+}
+
+// RENDER
+function getCategories() { return ['All', ...new Set(products.map(p => p.category))]; }
+
+function renderFilters() {
+  const filterRow = document.getElementById('filterRow');
+  filterRow.innerHTML = '';
+  getCategories().forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (cat === activeFilter ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = () => { activeFilter = cat; renderFilters(); renderProducts(); };
+    filterRow.appendChild(btn);
+  });
+}
+
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  const filtered = activeFilter === 'All' ? products : products.filter(p => p.category === activeFilter);
+  if (filtered.length === 0) {
+    grid.innerHTML = '<p style="color:var(--muted);text-align:center;padding:3rem;grid-column:1/-1;">Is category mein koi product nahi hai.</p>';
+    return;
+  }
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" onclick="openModal(${p.id})">
+      <button class="admin-edit-btn" onclick="event.stopPropagation();openEditForm(${p.id})">✏</button>
+      <button class="admin-delete-btn" onclick="event.stopPropagation();deleteProduct(${p.id})">✕</button>
+      <div class="product-img" style="background:${p.color}">
+        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+        ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />` : `<span style="font-size:4rem;">${p.emoji}</span>`}
+      </div>
+      <div class="product-info">
+        <p class="product-scent">${p.scent} · ${p.category}</p>
+        <h3 class="product-name">${p.name}</h3>
+        <p class="product-desc">${p.desc.substring(0,70)}…</p>
+        <div class="product-footer">
+          <div>
+            <div class="product-price">₹${p.price}</div>
+            <div class="product-wt">${p.weight}</div>
+          </div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('adminCount').textContent = products.length + ' products';
+}
+
+// MODAL
+function openModal(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const mimg = document.getElementById('modal-img');
+  if (p.image) {
+    mimg.innerHTML = `<img src="${p.image}" alt="${p.name}" style="width:100%;max-height:220px;object-fit:cover;border-radius:4px;" />`;
+  } else {
+    mimg.textContent = p.emoji;
+  }
+  document.getElementById('modal-scent').textContent = p.scent + ' · ' + p.category;
+  document.getElementById('modal-name').textContent = p.name;
+  document.getElementById('modal-desc').textContent = p.desc;
+  document.getElementById('modal-price').textContent = '₹' + p.price + ' / ' + p.weight;
+  const msg = encodeURIComponent(`Namaste! Main "${p.name}" (₹${p.price}, ${p.weight}) order karna chahta hoon. Please confirm availability.`);
+  document.getElementById('modal-wa').href = `https://wa.me/${PHONE}?text=${msg}`;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
+
+// ADMIN LOGIN
+function openLogin() { document.getElementById('loginModal').classList.add('open'); document.getElementById('loginPass').value = ''; document.getElementById('loginErr').style.display = 'none'; setTimeout(()=>document.getElementById('loginPass').focus(),100); }
+function checkLogin() {
+  const pass = document.getElementById('loginPass').value;
+  if (pass === ADMIN_PASSWORD) {
+    document.getElementById('loginModal').classList.remove('open');
+    document.body.classList.add('admin-mode');
+    showToast('✅ Admin mode on! Products edit/add/delete kar sako');
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+function exitAdmin() {
+  document.body.classList.remove('admin-mode');
+  showToast('Admin mode off');
+}
+
+// FORM
+function buildEmojiPicker() {
+  const picker = document.getElementById('emojiPicker');
+  picker.innerHTML = EMOJIS.map(e => `<span class="emoji-opt${e===selectedEmoji?' selected':''}" onclick="selectEmoji('${e}')">${e}</span>`).join('');
+}
+function buildColorPicker() {
+  const picker = document.getElementById('colorPicker');
+  picker.innerHTML = COLORS.map(c => `<div class="color-opt${c===selectedColor?' selected':''}" style="background:${c}" onclick="selectColor('${c}')"></div>`).join('');
+}
+function selectEmoji(e) { selectedEmoji = e; buildEmojiPicker(); }
+function selectColor(c) { selectedColor = c; buildColorPicker(); }
+
+function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 2.5 * 1024 * 1024) { showToast('⚠️ Photo 2MB se chhoti honi chahiye'); return; }
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    selectedImage = ev.target.result;
+    document.getElementById('imgPreview').src = selectedImage;
+    document.getElementById('imgPreviewWrap').classList.add('has-img');
+    document.getElementById('uploadArea').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+function removeImage() {
+  selectedImage = null;
+  document.getElementById('imgPreview').src = '';
+  document.getElementById('imgPreviewWrap').classList.remove('has-img');
+  document.getElementById('uploadArea').style.display = '';
+  document.getElementById('f-img-file').value = '';
+}
+function updateCatSuggestions() {
+  const cats = [...new Set(products.map(p => p.category))];
+  document.getElementById('catlist').innerHTML = cats.map(c => `<option value="${c}">`).join('');
+}
+
+function openAddForm() {
+  editingId = null;
+  selectedEmoji = '🕯️'; selectedColor = '#FDE8F0';
+  document.getElementById('formTitle').textContent = '➕ Naya Product Add Karo';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-cat').value = '';
+  document.getElementById('f-scent').value = '';
+  document.getElementById('f-price').value = '';
+  document.getElementById('f-weight').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-badge').value = '';
+  selectedImage = null;
+  document.getElementById('imgPreviewWrap').classList.remove('has-img');
+  document.getElementById('uploadArea').style.display = '';
+  document.getElementById('f-img-file').value = '';
+  buildEmojiPicker(); buildColorPicker(); updateCatSuggestions();
+  document.getElementById('amodal').classList.add('open');
+}
+
+function openEditForm(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  editingId = id;
+  selectedEmoji = p.emoji; selectedColor = p.color;
+  document.getElementById('formTitle').textContent = '✏️ Product Edit Karo';
+  document.getElementById('f-name').value = p.name;
+  document.getElementById('f-cat').value = p.category;
+  document.getElementById('f-scent').value = p.scent;
+  document.getElementById('f-price').value = p.price;
+  document.getElementById('f-weight').value = p.weight;
+  document.getElementById('f-desc').value = p.desc;
+  document.getElementById('f-badge').value = p.badge || '';
+  selectedImage = p.image || null;
+  if (selectedImage) {
+    document.getElementById('imgPreview').src = selectedImage;
+    document.getElementById('imgPreviewWrap').classList.add('has-img');
+    document.getElementById('uploadArea').style.display = 'none';
+  } else {
+    document.getElementById('imgPreviewWrap').classList.remove('has-img');
+    document.getElementById('uploadArea').style.display = '';
+  }
+  document.getElementById('f-img-file').value = '';
+  buildEmojiPicker(); buildColorPicker(); updateCatSuggestions();
+  document.getElementById('amodal').classList.add('open');
+}
+
+function closeForm() { document.getElementById('amodal').classList.remove('open'); }
+
+function saveProduct() {
+  const name = document.getElementById('f-name').value.trim();
+  const cat = document.getElementById('f-cat').value.trim();
+  const scent = document.getElementById('f-scent').value.trim();
+  const price = document.getElementById('f-price').value.trim().replace('₹','');
+  const weight = document.getElementById('f-weight').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  const badge = document.getElementById('f-badge').value.trim();
+
+  if (!name || !cat || !scent || !price || !weight || !desc) {
+    showToast('⚠️ Sabhi * fields bharo'); return;
+  }
+
+  if (editingId) {
+    const idx = products.findIndex(x => x.id === editingId);
+    products[idx] = { ...products[idx], name, category:cat, scent, price, weight, desc, badge, emoji:selectedEmoji, color:selectedColor, image:selectedImage };
+    showToast('✅ Product update ho gaya!');
+  } else {
+    const newId = products.length ? Math.max(...products.map(p=>p.id)) + 1 : 1;
+    products.push({ id:newId, name, category:cat, scent, price, weight, desc, badge, emoji:selectedEmoji, color:selectedColor, image:selectedImage });
+    showToast('✅ Naya product add ho gaya!');
+  }
+
+  saveProducts();
+  closeForm();
+  renderFilters();
+  renderProducts();
+}
+
+function deleteProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  if (!confirm(`"${p.name}" delete karna chahte ho?`)) return;
+  products = products.filter(x => x.id !== id);
+  saveProducts();
+  renderFilters();
+  renderProducts();
+  showToast('🗑️ Product delete ho gaya');
+}
+
+// TOAST
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// MARQUEE
+const items = ['🕯️ Handpoured Soy Wax', '🌸 Premium Fragrance Oils', '📦 Free Delivery Above ₹500', '✨ No Paraffin – Clean Burn', '🎁 Gift Packaging Available', '🕯️ Handpoured Soy Wax', '🌸 Premium Fragrance Oils', '📦 Free Delivery Above ₹500', '✨ No Paraffin – Clean Burn', '🎁 Gift Packaging Available'];
+document.getElementById('marqueeTrack').innerHTML = items.map(i => `<span class="marquee-item">${i}</span>`).join('');
+
+// INIT
+loadProducts();
+renderFilters();
+renderProducts();
+</script>
+</body>
+</html>
